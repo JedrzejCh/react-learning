@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from './UsersListItem.module.scss';
 const UsersListItem = ({ userData: { name, average, attendance = '0%' } }) => {
   return (
-    <li>
+    // <li className={[styles.user, styles.hasBorder].join(' ')}>
+    <li className={`${styles.user} ${styles.hasBorder}`}>
       <div>{average}</div>
       <div>
         <p>{name}</p>

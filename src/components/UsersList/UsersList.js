@@ -5,7 +5,7 @@ const UsersList = () => (
   <div>
     <ul>
       {users.map((userData) => (
-        <UsersListItem userData={userData} />
+        <UsersListItem userData={userData} key={userData.name} />
       ))}
     </ul>
   </div>
