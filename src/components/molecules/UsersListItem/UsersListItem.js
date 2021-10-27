@@ -1,33 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-
-const Wrapper = styled.li`
-  display: flex;
-  align-items: center;
-  position: relative;
-  &:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 1px;
-    background-color: lightgrey;
-  }
-`;
+import { Wrapper } from './UsersListItem.styles';
+import Button from 'components/atoms/button/Button';
+import Average from 'components/atoms/average/Average';
+import PersonName from 'components/atoms/personName/PersonName';
+import Attendance from 'components/atoms/attendance/Attendance';
 
 const UsersListItem = ({ userData: { name, average, attendance = '0%' } }) => {
   return (
     // <li className={[styles.user, styles.hasBorder].join(' ')}>
     <Wrapper>
-      <div>{average}</div>
+      <Average rating={average} />
       <div>
-        <p>{name}</p>
-        <p>Attendance: {attendance}</p>
+        <PersonName name={name} />
+        <Attendance rate={attendance} />
       </div>
-      <StyledButton>
-        <DeleteIcon />
-      </StyledButton>
+      <Button />
       {/* <StyledButton isSecondary isSquare>x</StyledButton> */}
     </Wrapper>
   );
