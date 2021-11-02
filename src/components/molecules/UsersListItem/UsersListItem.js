@@ -8,7 +8,7 @@ import Attendance from 'components/atoms/attendance/Attendance';
 
 const showIndex = (index) => alert(`This is student #${index + 1}`);
 
-const UsersListItem = ({ index, userData: { name, average, attendance = '0%' } }) => {
+const UsersListItem = ({ deleteUser, index, userData: { name, average, attendance = '0%' } }) => {
   return (
     // <li className={[styles.user, styles.hasBorder].join(' ')}>
     <Wrapper>
@@ -17,7 +17,7 @@ const UsersListItem = ({ index, userData: { name, average, attendance = '0%' } }
         <PersonName name={name} />
         <Attendance attendance={attendance} />
       </div>
-      <Button onClick={() => showIndex(index)} />
+      <Button onClick={() => deleteUser(name)} />
       {/* <StyledButton isSecondary isSquare>x</StyledButton> */}
     </Wrapper>
   );
