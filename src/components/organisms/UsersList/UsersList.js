@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { users as usersData } from 'data/users';
 import UsersListItem from 'components/molecules/UsersListItem/UsersListItem';
 import { Wrapper, StyledList } from './UsersList.styles';
-
+import FormField from 'components/molecules/formField/FormField';
+import { StyledTitle } from './UsersList.styles';
+import { Button } from 'components/atoms/Button/Button';
 const mockAPI = (success) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -44,14 +46,23 @@ const UsersList = () => {
   };
 
   return (
-    <Wrapper>
-      <h1>{isLoading ? 'Loading...' : 'List'}</h1>
-      <StyledList>
-        {users.map((userData, index) => (
-          <UsersListItem deleteUser={deleteUser} index={index} userData={userData} key={userData.name} />
-        ))}
-      </StyledList>
-    </Wrapper>
+    <>
+      <Wrapper>
+        <StyledTitle>Add new student</StyledTitle>
+        <FormField label="Name" id="name" name="name" />
+        <FormField label="Attendance" id="attendance" name="attendance" />
+        <FormField label="Average" id="average" name="average" />
+        <Button>Add</Button>
+      </Wrapper>
+      <Wrapper>
+        <StyledTitle>{isLoading ? 'Loading...' : 'List'}</StyledTitle>
+        <StyledList>
+          {users.map((userData, index) => (
+            <UsersListItem deleteUser={deleteUser} index={index} userData={userData} key={userData.name} />
+          ))}
+        </StyledList>
+      </Wrapper>
+    </>
   );
 };
 
