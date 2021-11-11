@@ -17,9 +17,16 @@ const mockAPI = (success) => {
   });
 };
 
+const initialFormValues = {
+  name: '',
+  attendance: '',
+  average: '',
+};
+
 const UsersList = () => {
   const [users, setUsers] = useState([]);
   const [isLoading, setLoadingState] = useState([]);
+  const [formValues, formValuesChange] = useState(initialFormValues);
 
   useEffect(() => {
     setLoadingState(true);
@@ -36,23 +43,39 @@ const UsersList = () => {
     // }
   }, []);
 
-  useEffect(() => {
-    console.log('Loading state has changed');
-  }, [isLoading]);
+  useEffect(() => {}, [isLoading]);
 
   const deleteUser = (name) => {
     const filteredUsers = users.filter((user) => user.name !== name);
     setUsers(filteredUsers);
   };
 
+  const handleInputValue = (e) => {
+    formValuesChange({ ...formValues, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newUser = {
+      name: formValues.name,
+      attendance: formValues.attendance,
+      average: formValues.average,
+    };
+
+    setUsers([newUser, ...users]);
+
+    //reset pól formularza
+    formValuesChange(initialFormValues);
+  };
+
   return (
     <>
-      <Wrapper>
+      <Wrapper as="form" onSubmit={handleSubmit}>
         <StyledTitle>Add new student</StyledTitle>
-        <FormField label="Name" id="name" name="name" />
-        <FormField label="Attendance" id="attendance" name="attendance" />
-        <FormField label="Average" id="average" name="average" />
-        <Button>Add</Button>
+        <FormField label="Name" id="name" name="name" value={formValues.name} onChange={handleInputValue} />
+        <FormField label="Attendance" id="attendance" name="attendance" value={formValues.attendance} onChange={handleInputValue} />
+        <FormField label="Average" id="average" name="average" value={formValues.average} onChange={handleInputValue} />
+        <Button type="submit">Add</Button>
       </Wrapper>
       <Wrapper>
         <StyledTitle>{isLoading ? 'Loading...' : 'List'}</StyledTitle>
