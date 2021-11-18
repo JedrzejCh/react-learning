@@ -1,57 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { users as usersData } from 'data/users';
 import UsersListItem from 'components/molecules/UsersListItem/UsersListItem';
 import { Wrapper, StyledList } from './UsersList.styles';
+import FormField from 'components/molecules/formField/FormField';
+import { StyledTitle } from './UsersList.styles';
+import { Button } from 'components/atoms/Button/Button';
 
-const mockAPI = (success) => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (usersData) {
-        resolve([...usersData]);
-      } else {
-        reject({ message: 'Error' });
-      }
-    }, 2000);
-  });
-};
-
-const UsersList = () => {
-  const [users, setUsers] = useState([]);
-  const [isLoading, setLoadingState] = useState([]);
-
-  useEffect(() => {
-    setLoadingState(true);
-    mockAPI()
-      .then((data) => {
-        setUsers(data);
-        setLoadingState(false);
-      })
-      .catch((er) => console.log(er));
-
-    // ComponentWillUnmount:
-    // return ()=> {
-    // window.removeEventListener()
-    // }
-  }, []);
-
-  useEffect(() => {
-    console.log('Loading state has changed');
-  }, [isLoading]);
-
-  const deleteUser = (name) => {
-    const filteredUsers = users.filter((user) => user.name !== name);
-    setUsers(filteredUsers);
-  };
-
+const UsersList = ({ users, isLoading, deleteUser }) => {
   return (
-    <Wrapper>
-      <h1>{isLoading ? 'Loading...' : 'List'}</h1>
-      <StyledList>
-        {users.map((userData, index) => (
-          <UsersListItem deleteUser={deleteUser} index={index} userData={userData} key={userData.name} />
-        ))}
-      </StyledList>
-    </Wrapper>
+    <>
+      <Wrapper>
+        <StyledTitle>{isLoading ? 'Loading...' : 'List'}</StyledTitle>
+        <StyledList>
+          {users.map((userData, index) => (
+            <UsersListItem deleteUser={deleteUser} index={index} userData={userData} key={userData.name} />
+          ))}
+        </StyledList>
+      </Wrapper>
+    </>
   );
 };
 

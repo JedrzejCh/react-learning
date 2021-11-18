@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Wrapper } from './UsersListItem.styles';
-import Button from 'components/atoms/button/Button';
+import DeleteButton from 'components/atoms/DeleteButton/DeleteButton';
 import Average from 'components/atoms/average/Average';
 import PersonName from 'components/atoms/personName/PersonName';
 import Attendance from 'components/atoms/attendance/Attendance';
@@ -17,7 +17,7 @@ const UsersListItem = ({ deleteUser, index, userData: { name, average, attendanc
         <PersonName name={name} />
         <Attendance attendance={attendance} />
       </div>
-      <Button onClick={() => deleteUser(name)} />
+      <DeleteButton onClick={() => deleteUser(name)} />
       {/* <StyledButton isSecondary isSquare>x</StyledButton> */}
     </Wrapper>
   );
