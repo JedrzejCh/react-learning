@@ -6,16 +6,18 @@ import Average from 'components/atoms/average/Average';
 import PersonName from 'components/atoms/personName/PersonName';
 import Attendance from 'components/atoms/attendance/Attendance';
 
-const UsersListItem = ({ userData: { name, average, attendance = '0%' } }) => {
+const showIndex = (index) => alert(`This is student #${index + 1}`);
+
+const UsersListItem = ({ index, userData: { name, average, attendance = '0%' } }) => {
   return (
     // <li className={[styles.user, styles.hasBorder].join(' ')}>
     <Wrapper>
       <Average rating={average} />
       <div>
         <PersonName name={name} />
-        <Attendance rate={attendance} />
+        <Attendance attendance={attendance} />
       </div>
-      <Button />
+      <Button onClick={() => showIndex(index)} />
       {/* <StyledButton isSecondary isSquare>x</StyledButton> */}
     </Wrapper>
   );
