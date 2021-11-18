@@ -4,13 +4,17 @@ import styled, { ThemeProvider } from 'styled-components';
 import { users as usersData } from 'data/users';
 import React, { useState, useEffect } from 'react';
 import { GlobalStyle } from 'assets/styles/globalStyle';
-import { Menu } from 'components/organisms/Menu/Menu';
+// import { Menu } from 'components/organisms/Menu/Menu';
 import { theme } from 'assets/styles/theme';
+import MainTemplate from 'components/templates/MainTemplate/MainTemplate';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Dashboard from './Dashboard';
+
 const Wrapper = styled.div`
   height: 100vh;
   // width: ${() => `${window.innerWidth / 2}px`};
-  width: 100%;
+  width: 100vw;
+  overflow-x: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -84,15 +88,17 @@ const Root = () => {
     <Router>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <Wrapper>
-          {/* <Link to="/add-user">dup</Link>
+        <MainTemplate>
+          <Wrapper>
+            {/* <Link to="/add-user">dup</Link>
             <Link to="/">chuj</Link> */}
-          <Menu />
-          <Routes>
-            <Route path="/add-user" element={<Form formValues={formValues} handleSubmit={handleSubmit} handleInputValue={handleInputValue} />} />
-            <Route path="/" element={<UsersList deleteUser={deleteUser} users={users} isLoading={isLoading} />} exact />
-          </Routes>
-        </Wrapper>
+            {/* <Menu /> */}
+            <Routes>
+              <Route path="/add-user" element={<Form formValues={formValues} handleSubmit={handleSubmit} handleInputValue={handleInputValue} />} />
+              <Route path="/" element={<Dashboard users={users} deleteUser={deleteUser} />} exact />
+            </Routes>
+          </Wrapper>
+        </MainTemplate>
       </ThemeProvider>
     </Router>
   );

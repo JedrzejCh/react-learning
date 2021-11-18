@@ -12,6 +12,7 @@ box-sizing: inherit;
 
 body{
   font-family: 'Montserrat', sans-serif;
+  overflow: hidden;
 }
 a,button{
    font-family: 'Montserrat', sans-serif;
