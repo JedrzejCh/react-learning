@@ -1,103 +1,36 @@
-import UsersList from 'components/organisms/UsersList/UsersList';
-import Form from 'components/organisms/form/Form';
 import styled, { ThemeProvider } from 'styled-components';
-import { users as usersData } from 'data/users';
+
 import React, { useState, useEffect } from 'react';
 import { GlobalStyle } from 'assets/styles/globalStyle';
-// import { Menu } from 'components/organisms/Menu/Menu';
 import { theme } from 'assets/styles/theme';
 import MainTemplate from 'components/templates/MainTemplate/MainTemplate';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './Dashboard';
-
+import AddUser from './AddUser';
+import UsersProvider from 'providers/UsersProvider';
 const Wrapper = styled.div`
   height: 100vh;
   // width: ${() => `${window.innerWidth / 2}px`};
   width: 100vw;
-  overflow-x: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-color: #f7f8fa; */
-  background-color: ${({ theme }) => theme.colors.lightGray};
 `;
 
-const mockAPI = (success) => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (usersData) {
-        resolve([...usersData]);
-      } else {
-        reject({ message: 'Error' });
-      }
-    }, 2000);
-  });
-};
-
-const initialFormValues = {
-  name: '',
-  attendance: '',
-  average: '',
-};
 const Root = () => {
-  const [users, setUsers] = useState([]);
-  const [isLoading, setLoadingState] = useState([]);
-  const [formValues, formValuesChange] = useState(initialFormValues);
-
-  useEffect(() => {
-    setLoadingState(true);
-    mockAPI()
-      .then((data) => {
-        setUsers(data);
-        setLoadingState(false);
-      })
-      .catch((er) => console.log(er));
-
-    // ComponentWillUnmount:
-    // return ()=> {
-    // window.removeEventListener()
-    // }
-  }, []);
-
-  useEffect(() => {}, [isLoading]);
-
-  const deleteUser = (name) => {
-    const filteredUsers = users.filter((user) => user.name !== name);
-    setUsers(filteredUsers);
-  };
-
-  const handleInputValue = (e) => {
-    formValuesChange({ ...formValues, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newUser = {
-      name: formValues.name,
-      attendance: formValues.attendance,
-      average: formValues.average,
-    };
-
-    setUsers([newUser, ...users]);
-
-    //reset pól formularza
-    formValuesChange(initialFormValues);
-  };
-
   return (
     <Router>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <MainTemplate>
-          <Wrapper>
-            {/* <Link to="/add-user">dup</Link>
-            <Link to="/">chuj</Link> */}
-            {/* <Menu /> */}
-            <Routes>
-              <Route path="/add-user" element={<Form formValues={formValues} handleSubmit={handleSubmit} handleInputValue={handleInputValue} />} />
-              <Route path="/" element={<Dashboard users={users} deleteUser={deleteUser} />} exact />
-            </Routes>
-          </Wrapper>
+          <UsersProvider>
+            <Wrapper>
+              <Routes>
+                <Route path="/add-user" element={<AddUser />} />
+                <Route path="/" element={<Dashboard />} exact />
+              </Routes>
+            </Wrapper>
+          </UsersProvider>
         </MainTemplate>
       </ThemeProvider>
     </Router>

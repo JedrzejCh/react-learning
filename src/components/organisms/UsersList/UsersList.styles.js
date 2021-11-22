@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
-  margin: 15px;
-  width: 100%;
-  max-width: 500px;
-  padding: 40px 60px;
-  border-radius: 25px;
-  box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.3);
-`;
+// export const Wrapper = styled.div`
+//   margin: 15px;
+//   width: 100%;
+//   max-width: 500px;
+//   padding: 40px 60px;
+//   border-radius: 25px;
+//   box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.3);
+// `;
 
 export const StyledList = styled.ul`
   list-style: none;
