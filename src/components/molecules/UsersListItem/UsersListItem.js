@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Wrapper } from './UsersListItem.styles';
 import DeleteButton from 'components/atoms/DeleteButton/DeleteButton';
 import Average from 'components/atoms/average/Average';
 import PersonName from 'components/atoms/personName/PersonName';
 import Attendance from 'components/atoms/attendance/Attendance';
+import { UserShape } from 'types';
+import { UsersContext } from 'providers/UsersProvider';
 
-const showIndex = (index) => alert(`This is student #${index + 1}`);
+const UsersListItem = ({ index, userData: { name, average, attendance = '0%' } }) => {
+  const { deleteUser } = useContext(UsersContext);
 
-const UsersListItem = ({ deleteUser, index, userData: { name, average, attendance = '0%' } }) => {
   return (
     // <li className={[styles.user, styles.hasBorder].join(' ')}>
     <Wrapper>
@@ -24,10 +26,6 @@ const UsersListItem = ({ deleteUser, index, userData: { name, average, attendanc
 };
 
 UsersListItem.propTypes = {
-  userData: PropTypes.shape({
-    average: PropTypes.string.isRequired,
-    attendance: PropTypes.string,
-    name: PropTypes.string.isRequired,
-  }),
+  userData: PropTypes.shape(UserShape),
 };
 export default UsersListItem;

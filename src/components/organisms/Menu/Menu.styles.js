@@ -9,4 +9,5 @@ export const Nav = styled.nav`
   flex-direction: column;
   /* justify-content: flex-start; */
   align-items: flex-start;
+  border-right: 2px solid #dfe2e8;
 `;
